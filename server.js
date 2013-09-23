@@ -1,10 +1,12 @@
+console.log(process.env.FORECAST_APIKEY);
+
 var googlePlaces = require("google-places-textsearch");
 var placesClient = new googlePlaces(process.env.GOOGLE_APIKEY);
 
 var forecast = require("forecast.io");
 var forecastOptions = {
   APIKey: process.env.FORECAST_APIKEY
-}
+};
 var forecastClient = new forecast(forecastOptions);
 
 var twilio = require("twilio");
