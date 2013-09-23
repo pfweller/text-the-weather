@@ -23,6 +23,11 @@ app.all('/', function(request, response) {
     twilioClient.listSms({
         to: '+441572460315'
     }, sendForecastBySms);
+    var resp = new twilio.TwimlResponse();
+    resp.message("foo");
+
+    response.type('text/xml');
+    response.send(resp.toString());
 });
 
 function sendForecastBySms(error, responseData) {
