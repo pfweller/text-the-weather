@@ -1,0 +1,16 @@
+{
+  "name": "text-the-weather",
+  "version": "0.0.1",
+  "description": "Weather forecasts from forecast.io via SMS",
+  "main": "server.js",
+  "repository": "",
+  "author": "Mostafa Eweda <mostafa@c9.io>",
+  "dependencies": {
+    "async": "~0.2.8",
+    "express": "~3.2.4",
+    "forecast.io": "~0.0.4",
+    "google-places-textsearch": "0.0.3",
+    "socket.io": "~0.9.14",
+    "twilio": "1.2.0"
+  }
+}
