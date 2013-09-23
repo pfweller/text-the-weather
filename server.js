@@ -62,7 +62,19 @@ function getForecastForLocation(error, placesResp) {
 
 function sendSms(error, result, forecastResp) {
     if (!error) {
-        var forecastMessage = "Next hour: " + forecastResp.minutely.summary + "\n" + "Next 24 hours: " + forecastResp.hourly.summary;
+        var forecastMessage;
+        if (typeof forecastResp.minutely !== undefined) {
+             forecastMessage = "Currently: " + forecastResp.currently.summary + "\n"
+                             + "Next hour: " + forecastResp.minutely.summary + "\n"
+                             + "Next 24 hours: " + forecastResp.hourly.summary;
+        }
+        else if (typeof forecastResp.hourly !== undefined) {
+            forecastMessage = "Currently: " + forecastResp.currently.summary + "\n"
+                            + "Next 24 hours: " + forecastResp.hourly.summary;
+        }
+        else {
+            forecastMessage = "We've had issues getting forecast data for your search, sorry! :-(";
+        }
 
         console.log(forecastMessage, "\n");
 
