@@ -76,7 +76,7 @@ function sendSms(error, result, forecastResp) {
             forecastMessage = "We've had issues getting forecast data for your search, sorry! :-(";
         }
 
-        console.log(forecastMessage, "\n");
+        console.log(forecastMessage);
 
         twilioClient.sms.messages.create({
             to: userNumber,
