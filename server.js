@@ -1,24 +1,29 @@
-console.log(process.env.FORECAST_APIKEY);
-
+/* set up Google Places API stuff */
 var googlePlaces = require("google-places-textsearch");
 var placesClient = new googlePlaces(process.env.GOOGLE_APIKEY);
 
+/* set up Forecast.io API stuff */
 var forecast = require("forecast.io");
 var forecastOptions = {
   APIKey: process.env.FORECAST_APIKEY
 };
 var forecastClient = new forecast(forecastOptions);
 
+/* set up Twilio API stuff */
 var twilio = require("twilio");
 var twilioClient = new twilio.RestClient(process.env.TWILIO_SID,
                                          process.env.TWILIO_AUTHKEY);
 
+/* set up Express */
 var express = require("express");
 var app = express();
 
+/* misc variables used later in the code */
 var port = process.env.PORT;
 var userNumber;
 
+/* Listen on the root directory for requests, and send an empty response back
+ * so that Twilio doesn't complain about timeouts or empty replies */
 app.all('/', function(request, response) {
     twilioClient.listSms({
         to: '+441572460315'
@@ -29,6 +34,8 @@ app.all('/', function(request, response) {
     response.send(resp);
 });
 
+/* Get the body from the user's SMS and try and find the weather for it,
+ * culminating in a SMS reply */
 function sendForecastBySms(error, responseData) {
     if (!error) {
         var userMessage = responseData.smsMessages[0].body;
@@ -45,6 +52,8 @@ function sendForecastBySms(error, responseData) {
     }
 }
 
+/* Look up the longitude and latitude for a location and request the forecast
+ * for that lat/long */
 function getForecastForLocation(error, placesResp) {
     if (!error) {
         var lat = placesResp.results[0].geometry.location.lat.toFixed(4);
@@ -59,6 +68,7 @@ function getForecastForLocation(error, placesResp) {
     }
 }
 
+/* Build the forecast message and send it back to the user via Twilio */
 function sendSms(error, result, forecastResp) {
     if (!error) {
         var forecastMessage;
@@ -88,6 +98,7 @@ function sendSms(error, result, forecastResp) {
     }
 }
 
+/* Handle errors/log success from Twilio after the reply is sent */
 function handleTwillioResponse(error, message) {
     if (!error) {
         console.log('Successfully replied! The SID for this SMS is:', message.sid);
@@ -98,6 +109,7 @@ function handleTwillioResponse(error, message) {
     }
 }
 
+/* Start listening for requests! */
 app.listen(port, function() {
     console.log("Listening on " + port);
 });
