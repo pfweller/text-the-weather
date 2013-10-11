@@ -76,12 +76,12 @@ function sendSms(error, result, forecastResp) {
     if (!error) {
         var forecastMessage;
         if (typeof forecastResp.minutely !== "undefined") {
-             forecastMessage = "Currently: " + forecastResp.currently.summary + ", " forecastResp.currently.apparentTemperature + "°C\n"
+             forecastMessage = "Currently: " + forecastResp.currently.summary + ", " + forecastResp.currently.apparentTemperature + "°C\n"
                              + "Next hour: " + forecastResp.minutely.summary + "\n"
                              + "Next 24 hours: " + forecastResp.hourly.summary;
         }
         else if (typeof forecastResp.hourly !== "undefined") {
-            forecastMessage = "Currently: " + forecastResp.currently.summary + ", " forecastResp.currently.apparentTemperature + "°C\n"
+            forecastMessage = "Currently: " + forecastResp.currently.summary + ", " + forecastResp.currently.apparentTemperature + "°C\n"
                             + "Next 24 hours: " + forecastResp.hourly.summary;
         }
         else {
