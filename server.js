@@ -90,7 +90,7 @@ function sendSms(error, result, forecastResp) {
 
         console.log(forecastMessage);
 
-        twilioClient.sms.messages.create({
+        twilioClient.messages.create({
             to: userNumber,
             from: '+441572460315',
             body: forecastMessage
