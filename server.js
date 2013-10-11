@@ -61,7 +61,10 @@ function getForecastForLocation(error, placesResp) {
 
         console.log("lat:", lat, ",", "long:", long);
 
-        forecastClient.get(lat, long, sendSms);
+        var options = {
+            units: "uk"
+        }
+        forecastClient.get(lat, long, options, sendSms);
     }
     else {
         console.log('Oops! getForecastForLocation threw an error.', error);
@@ -73,12 +76,14 @@ function sendSms(error, result, forecastResp) {
     if (!error) {
         var forecastMessage;
         if (typeof forecastResp.minutely !== "undefined") {
-             forecastMessage = "Currently: " + forecastResp.currently.summary + "\n"
+             forecastMessage = "Apparent temperature:" + forecastResp.currently.apparentTemperature + "°C\n"
+                             + "Currently: " + forecastResp.currently.summary + "\n"
                              + "Next hour: " + forecastResp.minutely.summary + "\n"
                              + "Next 24 hours: " + forecastResp.hourly.summary;
         }
         else if (typeof forecastResp.hourly !== "undefined") {
-            forecastMessage = "Currently: " + forecastResp.currently.summary + "\n"
+            forecastMessage = "Apparent temperature:" + forecastResp.currently.apparentTemperature + "°C\n"
+                            + "Currently: " + forecastResp.currently.summary + "\n"
                             + "Next 24 hours: " + forecastResp.hourly.summary;
         }
         else {
