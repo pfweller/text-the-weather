@@ -4,7 +4,7 @@
   "description": "Weather forecasts from forecast.io via SMS",
   "main": "server.js",
   "repository": "",
-  "author": "Mostafa Eweda <mostafa@c9.io>",
+  "author": "Peter F. Weller <pfweller@01welp.co.uk>",
   "dependencies": {
     "async": "~0.2.8",
     "express": "~3.2.4",
